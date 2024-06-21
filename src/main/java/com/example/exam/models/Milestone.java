@@ -31,6 +31,13 @@ public class Milestone {
         repositoryId = repository.getId();
     }
 
+    public Milestone(long id, String name, Repository repository){
+        this.id = id;
+        this.name = name;
+        this.repository = repository;
+        repositoryId = repository.getId();
+    }
+
     //Override
     @Override
     public boolean equals(Object o) {

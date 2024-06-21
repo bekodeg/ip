@@ -2,6 +2,7 @@ package com.example.exam.repositories;
 
 import com.example.exam.models.Repository;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -3,6 +3,10 @@ package com.example.exam.services;
 import com.example.exam.models.Milestone;
 import com.example.exam.repositories.MilestoneRepository;
 import com.example.exam.core.utils.validation.ValidatorUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +39,18 @@ public class MilestoneService {
     @Transactional
     public List<Milestone> getAll(){
         return repository.findAll();
+    }
+
+    @Transactional
+    public Page<Milestone> getAll(int page, int size){
+        final Pageable pageRequest = PageRequest.of(page, size, Sort.by("id"));
+        return repository.findAll(pageRequest);
+    }
+
+    @Transactional
+    public Page<Milestone> getAll(Long repositoryId, int page, int size){
+        final Pageable pageRequest = PageRequest.of(page, size, Sort.by("id"));
+        return repository.findAllByRepositoryId(repositoryId, pageRequest);
     }
 
     @Transactional
