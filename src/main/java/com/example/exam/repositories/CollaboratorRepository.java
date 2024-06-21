@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface CollaboratorRepository extends JpaRepository<Collaborator, Long> {
     public Optional<Collaborator> findByLoginAndPassword(String login, String password);
+
+    public Optional<Collaborator> findAllByLogin(String login);
 }

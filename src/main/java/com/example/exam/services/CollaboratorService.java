@@ -1,8 +1,12 @@
 package com.example.exam.services;
 
+import com.example.exam.core.security.UserPrincipal;
 import com.example.exam.models.Collaborator;
 import com.example.exam.repositories.CollaboratorRepository;
 import com.example.exam.core.utils.validation.ValidatorUtil;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +14,7 @@ import java.lang.module.FindException;
 import java.util.List;
 
 @Service
-public class CollaboratorService {
+public class CollaboratorService implements UserDetailsService {
     private final CollaboratorRepository repository;
     private final ValidatorUtil validatorUtil;
     //Constructor
@@ -66,5 +70,12 @@ public class CollaboratorService {
     @Transactional
     public void deleteAll(){
         repository.deleteAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final Collaborator existsUser = repository.findAllByLogin(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        return new UserPrincipal(existsUser);
     }
 }
