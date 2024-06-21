@@ -14,7 +14,7 @@ public class Repository {
 
     private long collaboratorId;
     @ManyToOne
-    @JoinColumn(name = "collaboratorId", nullable = false, unique = false)
+    @JoinColumn(name = "collaboratorId", insertable=false, updatable=false, nullable = false, unique = false)
     private Collaborator collaborator;
 
     @OneToMany(mappedBy = "repository")
@@ -73,6 +73,7 @@ public class Repository {
 
     public void setCollaborator(Collaborator collaborator){
         this.collaborator = collaborator;
+        collaboratorId = collaborator.getId();
     }
 
     public void setMilestones(Set<Milestone> milestones){

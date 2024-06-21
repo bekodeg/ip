@@ -18,7 +18,7 @@ public class Issue {
 
     private long milestoneId;
     @ManyToOne
-    @JoinColumn(name = "milestoneId", nullable = false, unique = false)
+    @JoinColumn(name = "milestoneId", insertable=false, updatable=false, nullable = false, unique = false)
     private Milestone milestone;
 
     //Constructor

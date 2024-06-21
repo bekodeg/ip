@@ -17,7 +17,7 @@ public class Milestone {
 
     private long repositoryId;
     @ManyToOne
-    @JoinColumn(name = "repositoryId", nullable = false, unique = false)
+    @JoinColumn(name = "repositoryId", insertable=false, updatable=false, nullable = false, unique = false)
     private Repository repository;
 
     @OneToMany(mappedBy = "milestone")
