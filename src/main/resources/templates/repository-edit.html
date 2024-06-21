@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Редакторовать репозиторий</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="w-50 mx-auto">
+        <form action="#" th:action="@{/admin/repository/edit/{id}(id=${repository.id})}" th:object="${repository}" method="post">
+            <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="text" th:value="*{id}" id="id" class="form-control" readonly disabled>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Название</label>
+                <input type="text" th:field="*{name}" id="name" class="form-control">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Участники</label>
+                <div class="form-check" th:each="collaborator: ${collaboratorsCheck}">
+                    <input class="form-check-input" th:field="*{collaborators}" th:value="${collaborator.id}" type="checkbox"
+                        th:for="${id}">
+                    <label class="form-check-label" th:field="*{collaborators}" for="" th:for="${id}">
+                        [[${collaborator.login}]]
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3 d-flex flex-row">
+                <button class="btn btn-primary me-2 button-fixed-width" type="submit">Сохранить</button>
+                <a class="btn btn-secondary button-fixed-width" href="/admin/repository">Отмена</a>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

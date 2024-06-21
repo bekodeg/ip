@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Редакторовать этап</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="w-50 mx-auto">
+        <form action="#" th:action="@{/admin/milestone/edit/{id}(id=${milestone.id})}" th:object="${milestone}" method="post">
+            <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="text" th:value="*{id}" id="id" class="form-control" readonly disabled>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Название</label>
+                <input type="text" th:field="*{name}" id="name" class="form-control">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
+            </div>
+            <div class="mb-2">
+                <label for="issueId" class="form-label">Этапы</label>
+                <select th:field="*{issueId}" id="issueId" class="form-select">
+                    <option selected value="">Укажите этапы</option>
+                    <option th:each="issue : ${issues}" th:value="${issue.id}">[[${issue.name}]]</option>
+                </select>
+            </div>
+            <div class="mb-3 d-flex flex-row">
+                <button class="btn btn-primary me-2 button-fixed-width" type="submit">Сохранить</button>
+                <a class="btn btn-secondary button-fixed-width" href="/admin/milestone">Отмена</a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

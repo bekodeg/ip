@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default}">
+
+<head>
+    <title>Этапы</title>
+</head>
+
+<body>
+    <main layout:fragment="content" class="w-50 mx-auto">
+        <th:block th:switch="${items.size()}">
+            <h2 th:case="0">Данные отсутствуют</h2>
+            <th:block th:case="*">
+                <h2 class="text-center">Этапы</h2>
+                <div>
+                    <a href="/admin/milestone/edit/" class="btn btn-primary">Добавить репозиторий</a>
+                </div>
+                <table class="table">
+                    <caption></caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="w-10">ID</th>
+                            <th scope="col" class="w-10">Название</th>
+                            <th scope="col" class="w-10"></th>
+                            <th scope="col" class="w-10"></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr th:each="milestone : ${items}">
+                            <th scope="row" th:text="${milestone.id}"></th>
+                            <td th:text="${milestone.name}"></td>
+                            <td>
+                                <form th:action="@{/admin/milestone/edit/{id}(id=${milestone.id})}" method="get">
+                                    <button type="submit" class="btn btn-link button-link">Редактировать</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/admin/milestone/delete/{id}(id=${milestone.id})}" method="post">
+                                    <button type="submit" class="btn btn-link button-link"
+                                        onclick="return confirm('Вы уверены?')">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </th:block>
+        </th:block>
+    </main>
+</body>
+
+</html>
